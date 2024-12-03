@@ -1,4 +1,5 @@
 let loggedInUser = null;
+let users = JSON.parse(localStorage.getItem("users")) || [];
 
 // Toggle the hamburger menu
 function toggleMenu() {
@@ -12,8 +13,18 @@ function registerUser() {
     const password = document.getElementById("reg-password").value;
 
     if (username && password) {
-        [].push({ username, password });
-        alert("Registration successful!");
+        // Check if the user already exists
+        if (users.some(user => user.username === username)) {
+            alert("Username already taken. Please choose another one.");
+        } else {
+            users.push({ username, password });
+            localStorage.setItem("users", JSON.stringify(users));
+            alert("Registration successful!");
+            document.getElementById("register-form").classList.add("hidden");
+            document.getElementById("login-form").classList.remove("hidden");
+            // Auto-fill username for login
+            document.getElementById("login-username").value = username;
+        }
     } else {
         alert("Please fill in all fields.");
     }
@@ -24,10 +35,12 @@ function loginUser() {
     const username = document.getElementById("login-username").value;
     const password = document.getElementById("login-password").value;
 
-    const user = [].find(u => u.username === username && u.password === password);
+    const user = users.find(u => u.username === username && u.password === password);
     if (user) {
         loggedInUser = user;
+        localStorage.setItem("loggedInUser", username); // Save logged-in user to localStorage
         alert(`Welcome, ${loggedInUser.username}!`);
+        window.location.href = "index.html"; // Redirect to main page
     } else {
         alert("Invalid username or password.");
     }
@@ -35,8 +48,8 @@ function loginUser() {
 
 // Log out the user
 function logoutUser() {
-    loggedInUser = null;
-    alert("You have logged out.");
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "auth.html"; // Redirect to login page
 }
 
 // Send a notification
@@ -79,56 +92,23 @@ if (document.getElementById("alerts-list")) {
     loadAlerts();
 }
 
-let loggedInUser = null;
-
 // Toggle between login and registration forms
 function toggleForms() {
     document.getElementById("register-form").classList.toggle("hidden");
     document.getElementById("login-form").classList.toggle("hidden");
 }
 
-// Register a new user
-function registerUser() {
-    const username = document.getElementById("reg-username").value;
-    const password = document.getElementById("reg-password").value;
-
-    if (username && password) {
-        // Check if the user already exists
-        if ([].some(user => user.username === username)) {
-            alert("Username already taken. Please choose another one.");
-        } else {
-            [].push({ username, password });
-            localStorage.setItem("users", JSON.stringify([]));
-            localStorage.setItem("loggedInUser", username);
-            alert("Registration successful!");
-            window.location.href = "index.html"; // Redirect to main page
-        }
+// Set logged-in user username to display
+function displayUsername() {
+    const loggedInUsername = localStorage.getItem("loggedInUser");
+    if (loggedInUsername) {
+        document.getElementById("username-display").textContent = loggedInUsername;
     } else {
-        alert("Please fill in all fields.");
+        window.location.href = "auth.html"; // Redirect if no user is logged in
     }
 }
 
-// Log in an existing user
-function loginUser() {
-    const username = document.getElementById("login-username").value;
-    const password = document.getElementById("login-password").value;
-
-    // Load users from local storage
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    const user = storedUsers.find(user => user.username === username && user.password === password);
-    if (user) {
-        localStorage.setItem("loggedInUser", username);
-        alert(`Welcome, ${username}!`);
-        window.location.href = "index.html"; // Redirect to main page
-    } else {
-        alert("Invalid username or password.");
-    }
+// Call this function when the page loads to display username on the dashboard
+if (document.getElementById("username-display")) {
+    displayUsername();
 }
-
-// Log out the user
-function logoutUser() {
-    localStorage.removeItem("loggedInUser");
-    window.location.href = "auth.html";
-}
-
