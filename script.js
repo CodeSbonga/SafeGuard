@@ -1,4 +1,4 @@
-let users = [];
+let loggedInUser = null;
 
 // Toggle the hamburger menu
 function toggleMenu() {
@@ -79,7 +79,7 @@ if (document.getElementById("alerts-list")) {
     loadAlerts();
 }
 
-let users = [];
+let loggedInUser = null;
 
 // Toggle between login and registration forms
 function toggleForms() {
