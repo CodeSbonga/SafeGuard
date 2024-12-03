@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Guard - Login/Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Safe Guard</h1>
+    </header>
+    <main>
+        <div id="auth-section">
+            <!-- Registration Form -->
+            <div id="register-form" class="auth-form">
+                <h2>Register</h2>
+                <input type="text" id="reg-username" placeholder="Username" required>
+                <input type="password" id="reg-password" placeholder="Password" required>
+                <button onclick="registerUser()">Register</button>
+                <p>Already have an account? <a href="#" onclick="toggleForms()">Login here</a>.</p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form hidden">
+                <h2>Login</h2>
+                <input type="text" id="login-username" placeholder="Username" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button onclick="loginUser()">Login</button>
+                <p>Don't have an account? <a href="#" onclick="toggleForms()">Register here</a>.</p>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

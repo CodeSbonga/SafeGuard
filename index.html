@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Guard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <h1>Safe Guard</h1>
+    </header>
+    <nav id="navbar" class="hidden">
+        <ul>
+            <li><a href="#notification-section">Send Alert</a></li>
+            <li><a href="alerts.html">View Alerts</a></li>
+            <li><a href="#" onclick="logoutUser()">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="dashboard">
+            <h2>Welcome, <span id="username-display"></span>!</h2>
+            <div id="notification-section">
+                <h3>Send Notification</h3>
+                <textarea id="notification-text" placeholder="Enter alert details"></textarea>
+                <select id="alert-type">
+                    <option value="Kidnapping">Kidnapping</option>
+                    <option value="Suspicious Activity">Suspicious Activity</option>
+                </select>
+                <button onclick="sendNotification()">Send</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
