@@ -1,4 +1,4 @@
-let loggedInUser = null;
+let users = [];
 
 // Toggle the hamburger menu
 function toggleMenu() {
